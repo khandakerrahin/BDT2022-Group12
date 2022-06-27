@@ -1,17 +1,111 @@
-<!DOCTYPE html>
-<html>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="static/leaflet/leaflet.js"></script>
-<script src="static/index.js"></script>
-<script>
-$(document).ready(function(){
-   loadHtml("content", "/static/map.html")
-});
-</script>
-</head>
-<body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="refresh" content="1000"> <!-- Refresh every 15 minutes -->
+    <title>BDT2022-Group12</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#0a192f">
+    <meta name="keywords"
+        content="khandakerrahin, khandaker rahin, khandaker, rahin, Mystery, mystic, mystic music, mystical music, spirituality, enigmatic music, music composer, flute music, film composer, artist, musical artist, spiritual artist, spiritual music, meditation music">
+    <meta name="description"
+        content="The aim of this big data project is to design and implement a big data system that can provide real-time context-aware recommendations to drivers on the level of possible danger.">
+    <meta property="og:title" content="BDT2022-Group12" />
+    <meta property="og:url" content="https://bdt2022group12.pythonanywhere.com/" />
+    <meta property="og:description" content="The aim of this big data project is to design and implement a big data system that can provide real-time context-aware recommendations to drivers on the level of possible danger.">
+    <meta property="og:image" content="https://www.khandakerrahin.com/img/core/thumbnail.jpg">
 
-<div id="content" class="content"></div>
-</body>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800|Playfair+Display:,300, 400, 700" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/mediaelementplayer.min.css">
+
+    <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@700&display=swap" rel="stylesheet">
+
+    <!-- countdown -->
+    <link href="css/common-css/bootstrap.css" rel="stylesheet">
+  	<link href="css/common-css/ionicons.css" rel="stylesheet">
+	  <link rel="stylesheet" href="css/common-css/jquery.classycountdown.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/core/coding_2.ico">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div id="time_loader" class="round-time-bar" data-style="smooth" style="--duration: 10;">
+      <div></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+        const bars = document.querySelectorAll(".round-time-bar");
+          $(document).ready(function () {
+            $("#time_loader").load(location.href + " #time_loader");
+            bars.forEach((bar) => {
+            bar.classList.remove("round-time-bar");
+            bar.offsetWidth;
+            bar.classList.add("round-time-bar");
+          });
+          setInterval( function() {
+                  $("#map").load(location.href + " #map");
+                  $("#time_loader").load(location.href + " #time_loader");
+              }, 10000 );
+
+          });
+      </script>
+
+    <div class="site-wrap">
+      <div>
+        <div id="map">
+          <div>replace_me</div>
+      </div>
+    </div>
+      <main>
+        <!-- ##### Footer Area Start ##### -->
+        <footer class="footer-area">
+          <div class="container">
+              <div class="row d-flex flex-wrap align-items-center">
+                  <!-- Mobile Nav Start -->
+                  <div id="mobsocialbuttons" class="mobclassynav" style="margin: auto; padding-bottom: 7px; padding-top: 3px;">
+                      <a href="https://github.com/khandakerrahin/BDT2022-Group12" target="_blank" class="fa fa-github" style="color: #e6f1ff; font-size: 27px;"></a>
+                  </div>
+                  <!-- Mobile Nav End -->
+              </div>
+                  
+          </div>
+      </footer>
+      <!-- ##### Footer Area Start ##### -->
+      </main>
+    </div>
+
+    <!-- loader -->
+    <div style="background: #0a192f;" id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="common-js/jquery-3.1.1.min.js"></script>
+ 
+    <!-- countdown -->
+    <script src="js/common-js/tether.min.js"></script>
+    <script src="js/common-js/bootstrap.js"></script>
+    <script src="js/common-js/jquery.classycountdown.js"></script>
+    <script src="js/common-js/jquery.knob.js"></script>
+    <script src="js/common-js/jquery.throttle.js"></script>
+    <script src="js/common-js/scripts.js"></script>
+
+    <!-- audio visualizer -->
+    <!-- <script src="js/visualizer.js"></script> -->
+
+  </body>
 </html>
