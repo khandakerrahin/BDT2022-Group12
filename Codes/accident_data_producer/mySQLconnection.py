@@ -3,10 +3,10 @@ import mysql.connector
 
 # connect to a database hosted on AWS
 db = mysql.connector.connect(
-    host='accidentsdb.cz6av9bkf3xq.eu-west-3.rds.amazonaws.com',
-    user='Admin2',
-    password='bdtproject2022',
-    database='accidentsDB'
+    host=HOST,
+    user=USERID,
+    password=PASSWORD,
+    database=DBNAME
 )
 
 cursor = db.cursor(dictionary=True)
