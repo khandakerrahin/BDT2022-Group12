@@ -1,0 +1,45 @@
+select * from accidents;
+select count(*) from accidents;
+aws ssm start-automation-execution --document-name "AWSSupport-TroubleshootSSH" --document-version "\$DEFAULT" --parameters '{"InstanceId":["i-0a7df01f9989b3f9e"],"Action":["FixAll"],"AllowOffline":["True"],"SubnetId":["SelectedInstanceSubnet"]}' --region us-east-1
+
+CREATE TABLE accidents(
+id float PRIMARY KEY,
+latitude float,
+longitude float,
+level varint,
+duration varint,
+time timestamp
+);
+acc_id int PRIMARY KEY,
+id UUID PRIMARY KEY,
+CREATE TABLE accidents(
+id float PRIMARY KEY,
+latitude text,
+longitude text,
+level text,
+time text
+);
+INSERT INTO accidents (acc_id, latitude, longitude, level, time) VALUES(1, 46.05735278, 11.11594766, 4, toTimestamp(now()));
+INSERT INTO accidents (acc_id, latitude, longitude, level, time) VALUES(3, 46.07711345, 11.1036409, 1, toTimestamp(now()));
+
+	
+ALTER TABLE accident_keyspace.accidents ALTER acc_id TYPE text;	
+	
+11.11454583	46.07370515
+11.11579099	46.12850534
+11.11930642	46.08509697
+11.11541701	46.08224993
+11.11776814	46.09221503
+11.11163194	46.10818759
+11.11213007	46.10671459
+11.1114957	46.06496566
+11.1281356	46.07327789
+11.12350411	46.07710506
+11.1186901	46.08533936
+11.12564526	46.07209604
+11.11646445	46.13499037
+11.11562455	46.06924489
+11.11003034	46.10465588
+11.13273374	46.06230421
+11.11311481	46.09131048
+11.10072187	46.07623036
