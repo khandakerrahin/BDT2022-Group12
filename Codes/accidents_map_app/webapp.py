@@ -5,10 +5,12 @@ import json
 from datetime import datetime
 import random
 import time
+import csv
+from cassandra_connector.connect_database import get_records_last_minute, get_count_last_five_minutes
 
 app = Flask(__name__)
 
-
+# This is used for generating a map with all the data plotted as markers
 @app.route('/generate_map')
 def generate_map():
   # Create map object
@@ -26,32 +28,31 @@ def generate_map():
   level_05 = '#ff0505'
 
   level_array = ['#fff600', '#ffc302', '#ff8f00', '#ff5b00', '#ff0505']
-  # read location coordinates
-  filename = "data/acc_json.json"
-  with open(filename, encoding="utf8") as f:
-      data = json.load(f)
 
-  # print("Length:", len(data))
-              
+
+  # fetch location coordinates from Cassandra
+  data = get_records_last_minute()
+
+
+  # Iterating through all the records to add them on the map         
   for accident in data:
-      # print(accident)
-      lat = accident['lat']-0.01*(random.randint(-4, 4))
-      long = accident['long']-0.01*(random.randint(-4, 4))
-      level = level_array[random.randint(0, 4)]
+      lat = accident['lat']
+      long = accident['long']
+      level = level_array[accident['level']]
 
+      
+      # generating random car markers
       logoIcon = folium.features.CustomIcon('car.png', icon_size=(25, 50))
 
-      # Create markers
       folium.Marker([(lat-0.01*(random.randint(-4, 4))), (long-0.01*(random.randint(-4, 4)))],
               popup='<strong>Car</strong>',
               tooltip=tooltip,
               icon=logoIcon).add_to(m),
 
 
-      # Create custom marker icon
+      # Plotting the Accident data
       logoIcon = folium.features.CustomIcon('danger.png', icon_size=(50, 50))
 
-      # Create markers
       folium.Marker([lat, long],
                   popup='<strong>Location</strong>',
                   tooltip=tooltip,
@@ -71,13 +72,23 @@ def generate_map():
   
   return m._repr_html_()
 
+
+# This is the root directory, it loads the template and fetch data
 @app.route('/')
 def load_home():
   map_html = generate_map()
   with open('templates/index.html', 'r') as f:
     html_string = f.read()
   # print("Before: ", html_string)
-  replaced_html = html_string.replace("replace_me", map_html)   
+  accident_history = get_count_last_five_minutes()
+
+  print(accident_history)
+  with open('templates/hist.csv', 'w') as f: 
+    write = csv.writer(f) 
+    write.writerow(accident_history)
+  
+  replaced_html = html_string.replace("replace_me_map", map_html)
+  replaced_html = replaced_html.replace("replace_me_counts", str(accident_history))
   # print("After: ", html_string)
   return replaced_html
 
