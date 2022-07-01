@@ -1,5 +1,5 @@
 {
-  "clientId": "XOsLEOoeawEZrZbWztghdatC",
-  "secret": "q1LviFk7Mu0mdNgNYzrwUsZGqcmmIe56vPzAtyco,_0MRNLwp9Ebi+EWAZdnUbPiSYDtBodnHXlzDQwzLIzfhbtzQwxa6PzNzDgnoxIUZpLJdgaRsoFuGWXEmep3Zx9I",
-  "token": "AstraCS:XOsLEOoeawEZrZbWztghdatC:0757726d7b568db2a2b6b7259c87769713d76aca480c4deaac8f1323184d86ac"
+  "clientId": CLIENTID,
+  "secret": SECRET
+  "token": TOKEN
 }
