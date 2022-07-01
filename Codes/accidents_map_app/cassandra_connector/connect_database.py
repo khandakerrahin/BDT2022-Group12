@@ -8,7 +8,7 @@ cloud_config= {
         'secure_connect_bundle': 'secure-connect-bdt-accidents.zip'
 }
 
-auth_provider = PlainTextAuthProvider('XOsLEOoeawEZrZbWztghdatC', 'q1LviFk7Mu0mdNgNYzrwUsZGqcmmIe56vPzAtyco,_0MRNLwp9Ebi+EWAZdnUbPiSYDtBodnHXlzDQwzLIzfhbtzQwxa6PzNzDgnoxIUZpLJdgaRsoFuGWXEmep3Zx9I')
+auth_provider = PlainTextAuthProvider(USEDID, USERSECRET)
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 session = cluster.connect()
 
