@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta http-equiv="refresh" content="1000"> <!-- Refresh every 15 minutes -->
+    <meta http-equiv="refresh" content="10"> <!-- Refresh every 15 minutes -->
     <title>BDT2022-Group12</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -37,6 +37,7 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   </head>
   <body>
     <div id="time_loader" class="round-time-bar" data-style="smooth" style="--duration: 10;">
@@ -55,7 +56,44 @@
           setInterval( function() {
                   $("#map").load(location.href + " #map");
                   $("#time_loader").load(location.href + " #time_loader");
-              }, 10000 );
+                  
+                  var client = new XMLHttpRequest();
+                  client.open('GET', 'hist.json');
+                  client.onreadystatechange = function() {
+                    var xValues = ["Now", "1 Min ago", "2 Min ago", "3 Min ago", "4 Min ago"];
+                    yValues = client.responseText;
+                    res_arr = yValues.split(",");
+                    myChartVar.data.datasets.forEach((dataset) => {
+                        dataset.data.pop();
+                    });
+                    console.log(res_arr[0])
+                    console.log(res_arr[1])
+                    console.log(res_arr[2])
+                    console.log(res_arr[3])
+                    console.log(res_arr[4])
+                    myChartVar.data.datasets.forEach((dataset) => {
+                        dataset.data.push(yValues[0]);
+                    });
+                    myChartVar.data.datasets.forEach((dataset) => {
+                        dataset.data.push(yValues[1]);
+                    });
+                    myChartVar.data.datasets.forEach((dataset) => {
+                        dataset.data.push(yValues[2]);
+                    });
+                    myChartVar.data.datasets.forEach((dataset) => {
+                        dataset.data.push(yValues[3]);
+                    });
+                    myChartVar.data.datasets.forEach((dataset) => {
+                        dataset.data.push(yValues[4]);
+                    });
+
+                    //myChartVar.update();
+                  }
+                  
+                  client.send();
+                  
+                  
+              }, 20000 );
 
           });
       </script>
@@ -63,16 +101,46 @@
     <div class="site-wrap">
       <div>
         <div id="map">
-          <div>replace_me</div>
+          <div>replace_me_map</div>
       </div>
       <div class="sticky-sidebar">
-        <h4 style="color: #ffffff;"><strong>Danger level</strong></h4>
+        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+        <script>
+          var xValues = ["Now", "1 Min ago", "2 Min ago", "3 Min ago", "4 Min ago"];
+          var yValues = replace_me_counts;
+          var barColors = [
+            "#b91d47",
+            "#00aba9",
+            "#2b5797",
+            "#e8c3b9",
+            "#1e7145"
+          ];
+          
+          var myChartVar = new Chart("myChart", {
+            type: "doughnut",
+            data: {
+              labels: xValues,
+              datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: "Accident Records for last 5 minutes"
+              }
+            }
+          });
+          </script>
+        <br>
+        <h4 style="font-size: small; color: #ffffff;"><strong>Accident Danger level</strong></h4>
         <ul class="a">
-          <li style="color: #fff600;"><strong>Low</strong></li>
-          <li style="color: #ffc302;"><strong>Medium</strong></li>
-          <li style="color: #ff8f00;"><strong>High</strong></li>
-          <li style="color: #ff5b00;"><strong>Severe</strong></li>
-          <li style="color: #ff0505;"><strong>Extreme</strong></li>
+          <li style="font-size: smaller; color: #fff600;"><strong>Low</strong></li>
+          <li style="font-size: smaller; color: #ffc302;"><strong>Medium</strong></li>
+          <li style="font-size: smaller; color: #ff8f00;"><strong>High</strong></li>
+          <li style="font-size: smaller; color: #ff5b00;"><strong>Severe</strong></li>
+          <li style="font-size: smaller; color: #ff0505;"><strong>Extreme</strong></li>
         </ul>
       </div>
     </div>
@@ -100,10 +168,8 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.countdown.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/Chart.js"></script>
     <script src="common-js/jquery-3.1.1.min.js"></script>
  
     <!-- countdown -->
