@@ -22,10 +22,10 @@ KAFKA_SERVER = "moped-01.srvs.cloudkafka.com:9094"
         
 spark = SparkSession.builder \
   .appName('SparkCassandraApp') \
-  .config('spark.cassandra.connection.host', '172a25cb-993d-42f0-b035-f382d55499c7-europe-west1.db.astra.datastax.com') \
-  .config('spark.cassandra.connection.port', '29042') \
- .config("spark.cassandra.auth.username","XOsLEOoeawEZrZbWztghdatC")\
-  .config("spark.cassandra.auth.password","q1LviFk7Mu0mdNgNYzrwUsZGqcmmIe56vPzAtyco,_0MRNLwp9Ebi+EWAZdnUbPiSYDtBodnHXlzDQwzLIzfhbtzQwxa6PzNzDgnoxIUZpLJdgaRsoFuGWXEmep3Zx9I") \
+  .config('spark.cassandra.connection.host', CASSANDRA_HOST) \
+  .config('spark.cassandra.connection.port', CASSANDRA_PORT) \
+ .config("spark.cassandra.auth.username", CASSANDRA_USERNAME)\
+  .config("spark.cassandra.auth.password", CASSANDRA_PASSWORD) \
   .getOrCreate()
  
 # df = sqlContext.read.format("org.apache.spark.sql.cassandra").options(table, keyspace).load()
@@ -52,7 +52,7 @@ df = (spark
   .format("kafka")
   .option("kafka.bootstrap.servers", KAFKA_SERVER)
   .option("kafka.security.protocol", "SASL_SSL")
-  .option("kafka.sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username='{}' password='{}';".format("wbwkos2c", "N1sfB_RASP_Kg7hd151D2za-orxuIqIO"))
+  .option("kafka.sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username='{}' password='{}';".format(KAFKA_USERNAME, KAFKA_PASSWORD))
   .option("kafka.ssl.endpoint.identification.algorithm", "https")
   .option("kafka.sasl.mechanism", "SCRAM-SHA-256")
   .option("subscribe", topic)
