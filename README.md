@@ -1,8 +1,10 @@
 # BDT2022-Group12
+- Shaker Mahmud Khandaker
+- Ciro Beneduce
 
 **Big Data Technologies Project 2022 - Group 12**
 
-The aim of this big data project is to design and implement a big data system that can provide real-time context-aware recommendations to drivers on the level of possible danger. 
+The project aims to implement a big data system that provides real-time context-aware recommendations to drivers based on the level of possible danger. A pipeline has been defined, starting from the data collection,  passing through real-time data ingestion and ending with a working demo that, using the map of Trent, plots real-time fake accidents taking into account their severity.
 
 #
 **Live Demo:** [Click here](https://bdt2022group12.pythonanywhere.com/)
