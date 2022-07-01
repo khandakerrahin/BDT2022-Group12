@@ -10,8 +10,8 @@ if __name__ == '__main__':
             'bootstrap.servers':  'moped-01.srvs.cloudkafka.com:9094',
             'security.protocol': 'SASL_SSL',
             'sasl.mechanisms': 'SCRAM-SHA-256',
-            'sasl.username': USERNAME,
-            'sasl.password': PASSWORD
+            'sasl.username': "wbwkos2c",
+            'sasl.password': "N1sfB_RASP_Kg7hd151D2za-orxuIqIO"
             }
     c = Consumer(**conf)
     c.subscribe(topic)

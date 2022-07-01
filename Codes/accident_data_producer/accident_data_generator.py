@@ -2,6 +2,7 @@ import random
 import datetime
 from mySQLconnection import get_real_data
 
+# fetch real data from AWS and populate fake data
 def generate_accident() -> dict:
     accident_data = get_real_data()
 

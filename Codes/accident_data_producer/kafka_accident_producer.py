@@ -36,8 +36,6 @@ if __name__ == '__main__':
         accident_message = generate_accident()
 
         # Send it to our 'accidents' topic
-        #print(f'Producing message @ {datetime.now()} | Message = {str(accident_message)}')
-        
         # send message to topic in json format
         try:
             # p.produce(topic[0], json.dumps(accident_message).encode('utf-8'))
