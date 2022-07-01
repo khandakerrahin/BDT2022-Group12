@@ -1,4 +1,4 @@
-#To run: spark-submit -spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-token-provider-kafka-0-10_2.12:3.1.2,com.datastax.spark:spark-cassandra-connector_2.12:3.2.0 /home/ciro/Desktop/BDT/Kafka-Spark/kafka-spark.py-packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0,com.datastax.spark:spark-cassandra-connector_2.12:3.2.0 (your path to the file, e.g. home/ciro/Desktop/BDT/Kafka-Spark/kafka-spark.py )
+#To run: 
 #spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2,org.apache.spark:spark-token-provider-kafka-0-10_2.12:3.1.2,com.datastax.spark:spark-cassandra-connector_2.12:3.2.0 /opt/apps/spark_stream_handler.py
 
 
@@ -17,18 +17,14 @@ KAFKA_TOPIC = "wbwkos2c-Accidents"
 KAFKA_SERVER = "moped-01.srvs.cloudkafka.com:9094"
 
 # creating an instance of SparkSession
-
-
-        
 spark = SparkSession.builder \
   .appName('SparkCassandraApp') \
-  .config('spark.cassandra.connection.host', CASSANDRA_HOST) \
-  .config('spark.cassandra.connection.port', CASSANDRA_PORT) \
- .config("spark.cassandra.auth.username", CASSANDRA_USERNAME)\
-  .config("spark.cassandra.auth.password", CASSANDRA_PASSWORD) \
+  .config('spark.cassandra.connection.host', '172a25cb-993d-42f0-b035-f382d55499c7-europe-west1.db.astra.datastax.com') \
+  .config('spark.cassandra.connection.port', '29042') \
+ .config("spark.cassandra.auth.username","XOsLEOoeawEZrZbWztghdatC")\
+  .config("spark.cassandra.auth.password","q1LviFk7Mu0mdNgNYzrwUsZGqcmmIe56vPzAtyco,_0MRNLwp9Ebi+EWAZdnUbPiSYDtBodnHXlzDQwzLIzfhbtzQwxa6PzNzDgnoxIUZpLJdgaRsoFuGWXEmep3Zx9I") \
   .getOrCreate()
  
-# df = sqlContext.read.format("org.apache.spark.sql.cassandra").options(table, keyspace).load()
 #To avoid unncessary logs
 spark.sparkContext.setLogLevel("WARN")
 spark.catalog.clearCache()
@@ -52,7 +48,7 @@ df = (spark
   .format("kafka")
   .option("kafka.bootstrap.servers", KAFKA_SERVER)
   .option("kafka.security.protocol", "SASL_SSL")
-  .option("kafka.sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username='{}' password='{}';".format(KAFKA_USERNAME, KAFKA_PASSWORD))
+  .option("kafka.sasl.jaas.config", "org.apache.kafka.common.security.scram.ScramLoginModule required username='{}' password='{}';".format("wbwkos2c", "N1sfB_RASP_Kg7hd151D2za-orxuIqIO"))
   .option("kafka.ssl.endpoint.identification.algorithm", "https")
   .option("kafka.sasl.mechanism", "SCRAM-SHA-256")
   .option("subscribe", topic)
@@ -67,15 +63,10 @@ df.printSchema()
 CASSANDRA_KEYSPACE = 'accident_keyspace'
 CASSANDRA_TABLE = 'accidents'
 
-def generate_id():
-  return random.randint(0, 4)
-
-#(generate_id() if col("id") is None else col("id"))
+# generating primary key column
 df_with_id = df.withColumn("id",rand())
-#df_with_id = df.withColumn("id",when(col("id").isNull() ,generate_id()).otherwise(generate_id()))
-# df_with_id = df.withColumn("id",col("id").cast("Integer"))
-# df_with_id2 = df_with_id.withColumn("id",col("id")*2)
 
+# Writing to stream
 query = df_with_id.writeStream \
       .outputMode('append')\
       .trigger(processingTime='5 seconds')\
