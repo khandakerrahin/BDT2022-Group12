@@ -6,7 +6,7 @@ from datetime import datetime
 import random
 import time
 import csv
-from cassandra_connector.connect_database import get_records_last_minute, get_count_last_five_minutes
+from cassandra_connector.cassandra_api_connect import get_records_last_minute, get_count_last_five_minutes
 
 app = Flask(__name__)
 
@@ -32,15 +32,15 @@ def generate_map():
 
   # fetch location coordinates from Cassandra
   data = get_records_last_minute()
-
-
   # Iterating through all the records to add them on the map         
   for accident in data:
-      lat = accident['lat']
-      long = accident['long']
-      level = level_array[accident['level']]
-
+      accident = json.loads(accident)
       
+      lat = accident["lat"]
+      long = accident["long"]
+      level = level_array[accident["level"]]
+
+    
       # generating random car markers
       logoIcon = folium.features.CustomIcon('car.png', icon_size=(25, 50))
 
